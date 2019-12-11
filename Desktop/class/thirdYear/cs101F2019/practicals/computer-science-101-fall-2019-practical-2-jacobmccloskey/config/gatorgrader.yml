@@ -1,0 +1,51 @@
+---
+name: cs101-F2019-practical2
+break: true
+indent: 4
+---
+
+# Learn more about GatorGrader and its supported checks by visiting this web site:
+# https://github.com/GatorEducator/gatorgrader
+
+# Explanation:
+# --> a check without an "--exact" runs a count for an entity as an "at least"
+# --> checks below a file in a specified directory are for that specific file and directory
+# --> checks that appear stand-alone are for an entire Git repository
+
+# --> check the source code for various characteristics
+src/main:
+    java:
+        practicaltwo/StatisticsCalculator.java:
+            ConfirmFileExists
+            CountMultipleLineComments --language Java --count 3
+            MatchFileFragment --fragment "TODO" --count 0 --exact
+            MatchFileFragment --fragment "Add Your Name Here" --count 0 --exact
+            MatchFileFragment --fragment "package practicaltwo" --count 1 --exact
+            MatchFileFragment --fragment "println(" --count 5
+            MatchFileFragment --fragment "for (" --count 2
+            MatchFileFragment --fragment "Math.sqrt" --count 1
+            MatchFileFragment --fragment "{12.5, 6.2, 1.5, 2.9, 10.8}" --count 1 --exact
+
+# --> check the source code for various characteristics
+src/test:
+    java:
+        practicaltwo/TestStatisticsCalculator.java:
+            ConfirmFileExists
+            CountMultipleLineComments --language Java --count 1
+            MatchFileFragment --fragment "TODO" --count 0 --exact
+            MatchFileFragment --fragment "Add Your Name Here" --count 0 --exact
+            MatchFileFragment --fragment "package practicaltwo" --count 1 --exact
+            MatchFileFragment --fragment "@Test" --count 9
+
+# --> check that the number of commits in the Git repository is beyond a threshold
+CountCommits --count 5
+
+# --> check that the program executes correctly and produces exactly 10 lines of output
+ExecuteCommand --command "gradle build"
+ExecuteCommand --command "gradle -q --console plain run"
+CountCommandOutput --command "gradle -q --console plain run" --count 10 --exact
+
+# --> check that the program produces the output with specific fragments:
+MatchCommandFragment --command "gradle -q --console plain run" --fragment "6.78" --count 1 --exact
+MatchCommandFragment --command "gradle -q --console plain run" --fragment "23.04" --count 1 --exact
+MatchCommandFragment --command "gradle -q --console plain run" --fragment "4.80" --count 1 --exact
